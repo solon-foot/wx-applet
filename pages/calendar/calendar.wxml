@@ -1,0 +1,7 @@
+<!--calendar.wxml-->
+<view class='weeks'>
+    <view class="calendar-box {{(index%7==5 || index%7==6)?'calendar-weekend':''}}" wx:for="{{weeks}}">
+    <text class="calendar-daynumber">{{item}}</text>
+    
+    </view>
+</view>
