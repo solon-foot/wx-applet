@@ -1,0 +1,29 @@
+<!--index.wxml-->
+
+
+<view class="index">
+  
+  <view class="index-bd">
+    <view class="kind-list">
+      <block wx:for-items="{{list}}" wx:key="{{item.name}}">
+        <view class="kind-list-item">
+          <view id="{{index}}" class="kind-list-item-hd {{item.open ? 'kind-list-item-hd-show' : ''}}" bindtap="kindToggle">
+            <view class="kind-list-text">{{item.name}}</view>
+            <!--<image class="kind-list-img" src="img/{{item.icon}}"></image>-->
+          </view>
+          <view class="kind-list-item-bd {{item.open ? 'kind-list-item-bd-show' : ''}}">
+            <view class="navigator-box {{item.open ? 'navigator-box-show' : ''}}">
+              <block wx:for-items="{{item.list}}" wx:for-item="item2" wx:key="*item">
+                <navigator url="{{item2.url}}"  class="navigator">
+                <image class="navigator-icon" src="img/{{item2.icon}}"></image>
+                  <view class="navigator-text">{{item2.name}}</view>
+                  <view class="navigator-arrow"></view>
+                </navigator>
+              </block>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,5 @@
+<!--formula.wxml-->
+<view class="classname" wx:for="{{show}}">
+<image src="../img/{{item.icon}}" style="width:63rpx;height:64rpx;"></image>
+{{item.formular}}
+</view>
