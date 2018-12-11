@@ -1,0 +1,25 @@
+<!--pages/user/info.wxml-->
+<import src='/pages/template/item_family_tree.wxml' />
+<view style='padding:0px'>
+  <scroll-view scroll-x="true" scroll-y="true">
+    <view class='tree'>
+      <template is='item' data="{{children:family}}" />
+    </view>
+  </scroll-view>
+
+
+  <view class='modal' wx:if="{{modal.show}}">
+    <view class='modal-content'>
+    <image src='./head.png' style='width:100rpx;height:100rpx;background-color:#ccc;border-radius:50rpx;' />
+    <view style='width:20rpx;height:20rpx;color:#000;position:absolute;right:20rpx;top:10rpx;padding:10rpx;' bindtap='closeModal'>╳</view>
+      <input style='background-color:#fcfcfc;border:1px solid #ccc;margin:20rpx;padding:10rpx;' value='{{modal.text}}' placeholder='姓名'  focus='true' bindinput='inputAction'></input>
+    <view style='position:absolute;bottom:20rpx;'>
+    
+    <button style='width:120rpx;position:relative;' bindtap='save'>保存</button>
+    </view>
+    </view>
+  </view>
+  
+  
+
+</view>

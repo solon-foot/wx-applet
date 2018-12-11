@@ -1,0 +1,230 @@
+/**index.wxss**/
+
+.icon{ background:url(images/icon.png) no-repeat; width:36px; height:36px; display:block;}
+.icon_set{ background-position:0 -64px;}
+
+.toolbar{
+	overflow:hidden;
+	width:100%;
+	position:relative;
+	left:0px;
+	top:0px;
+	z-index:999;
+	height: 46px;
+	background-image: -webkit-gradient(linear,center top,center bottom,from(#df481a), to(#c82713));
+	background-color:#d33716;
+	border-bottom:1px solid #ec6624;
+	display: -webkit-box; 
+    display: box;
+}
+.toolbar text{
+	margin:5px 0 0 10px;
+	height:36px;
+	line-height:36px;
+	font-size:22px;
+	color:#FFF;
+	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+	font-weight:bold;
+	-webkit-box-flex: 2; 
+    box-flex: 2;
+}
+.toolbar .icon_calendar{
+	margin:5px 0 0 10px;
+}
+.toolbar .action{
+	margin:5px 10px;
+	display:block;
+	height:36px;
+	line-height:36px;
+	font-size:20px;
+	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+	font-weight:bold;
+	color:#FFF;
+	text-align:right;
+	-webkit-box-flex: 1; 
+    box-flex: 1;
+}
+.toolbar .action{
+	color:#FFF;
+}
+
+
+
+.wrapper{
+	width:100%;
+}
+.slide_wrap{
+	width:100%;
+	height:320px;
+	overflow:hidden;
+}
+.date_slide{
+	position:relative;
+	left:0px;
+	top:0px;
+	transform-origin:0 0;
+	-webkit-transform-origin:0 0;
+	/*-webkit-animation-timing-function: ease-in-out;
+	-webkit-transition-duration: 300ms;*/
+}
+.date_list{
+	font-family: "Courier New", "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+	position:absolute;
+	top:0px;
+	left:0px;
+	-webkit-transform-origin:0 0;
+}
+.date_row{
+	display: -webkit-box; 
+    display: box;
+	width:100%;
+}
+.date_row .date_item{
+	-webkit-box-flex: 1; 
+    box-flex: 1;
+	border-color:#cecece;
+	border-style:solid;
+	border-width:0 1px 1px 0;
+	color:#5b5b5b;
+	position:relative;
+	text-align:center;
+	overflow:hidden;
+	width: 0%;
+	padding:6px 5px;
+	height:40px;
+}
+.date_item:last-child{
+	border-right:none;
+}
+.date_item .date_day{
+	font-size:20px;
+	display:block;
+}
+.date_item .date_lunar{
+	height:16px;
+	line-height:16px;
+	font-size:12px;
+	color:#8a8a8a;
+	display:block;
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+}
+.date_item .lunar_fetv{
+	color:#14a700;
+}
+.date_item .solar_fetv{
+	color:#d43111;
+}
+.date_item .date_icon{
+	position:absolute;
+	left:0px;
+	top:0px;
+	padding:0px 2px;
+	color:#FFF;
+	font-size:12px;
+	display:none;
+}
+.date_row .holiday {
+  background-color:#fff0f0;
+}
+.date_row .worktime {
+  background-color:#f5f5f5;
+}
+.date_item .holiday{
+	background-color:#f43;
+	/* border:1px solid #a82220; */
+	display:block;
+}
+.date_item .worktime{
+	background-color:#969799;
+	/* border:1px solid #87c7e2; */
+	display:block;
+}
+.date_row .date_today{
+	background-color:#fb0;
+	color:#FFF;
+}
+.date_row .date_today .date_lunar{
+	color:#FFF;
+}
+.date_row .date_current{
+	   background-color:#c82713;   
+	   color:#FFF;   
+     /* box-sizing: border-box; 
+     height: 53px;
+    border: 4px #fb0 solid;  
+    padding: 3px 1px; 
+   margin: 0; */
+}
+.date_row .date_current .date_lunar{
+	  color:#FFF;  
+}
+.date_row .date_other{
+	opacity:0.4;
+}
+.date_week .date_item{
+	line-height:30px;
+	height:30px;
+	border-right:none;
+	text-align:center;
+	font-size:16px;
+	padding:0px;
+}
+
+/*指定日期详情*/
+.date_info{
+	padding:10px;
+}
+.date_lunar_info{
+	color:#d96b6b;
+	font-size:24px;
+	line-height:38px;
+	text-align:center;
+}
+.date_fetv{
+	color:#666666;
+	line-height:22px;
+	font-size:16px;
+	margin-bottom:5px;
+}
+.date_gan_zhi{
+	line-height:30px;
+	background-color:#e68383;
+	text-align:center;
+	color:#FFF;
+	font-size:16px;
+}
+.date_hl{
+	display:none;
+}
+.date_hl_item{
+	margin-top:5px;
+	line-height:24px;
+}
+.circle {
+	width: 24px;
+	height: 24px;
+	background-color: transparent;
+	border: 1px #14a700 solid;
+	-webkit-border-radius: 13px;
+	text-align:center;
+	line-height:26px;
+	font-size:16px;
+	display:inline-block;
+	margin-right:5px;
+}
+.hl_y{
+	color:#14a700;
+}
+.hl_j{
+	color:#d43111;
+	border: 1px #d43111 solid;
+}
+.hl_y_content{
+	color:#14a700;
+}
+.hl_j_content{
+	color:#d43111;
+}

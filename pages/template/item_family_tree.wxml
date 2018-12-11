@@ -1,0 +1,250 @@
+<template name='item'>
+<view class='ul'>
+  <view class='li' wx:for="{{children}}">
+    <text bindtap='click' data-item="{{item}}">{{item.name}}</text>
+    <template is='item2' data="{{children:item.children}}" wx:if="{{item.children&&item.children.length>0}}"/>
+  </view>
+</view>
+</template>
+<template name='item2'>
+<view class='ul'>
+  <view class='li' wx:for="{{children}}">
+    <text bindtap='click' data-item="{{item}}">{{item.name}}</text>
+     <template is='item3' data="{{children:item.children}}" wx:if="{{item.children&&item.children.length>0}}"/> 
+  </view>
+</view>
+</template>
+
+<template name='item3'>
+<view class='ul'>
+  <view class='li' wx:for="{{children}}">
+    <text bindtap='click' data-item="{{item}}">{{item.name}}</text>
+    <template is='item4' data="{{children:item.children}}" wx:if="{{item.children&&item.children.length>0}}" />
+  </view>
+</view>
+</template>
+
+<template name='item4'>
+<view class='ul'>
+  <view class='li' wx:for="{{children}}">
+    <text bindtap='click' data-item="{{item}}">{{item.name}}</text>
+    <template is='item5' data="{{children:item.children}}" wx:if="{{item.children&&item.children.length>0}}"/>
+  </view>
+</view>
+</template>
+
+<template name='item5'>
+<view class='ul'>
+  <view class='li' wx:for="{{children}}">
+    <text bindtap='click' data-item="{{item}}">{{item.name}}</text>
+    <template is='item6' data="{{children:item.children}}" wx:if="{{item.children&&item.children.length>0}}"/>
+  </view>
+</view>
+</template>
+
+<template name='item6'>
+<view class='ul'>
+  <view class='li' wx:for="{{children}}">
+    <text bindtap='click' data-item="{{item}}">{{item.name}}</text>
+    <template is='item7' data="{{children:item.children}}" wx:if="{{item.children&&item.children.length>0}}"/>
+  </view>
+</view>
+</template>
+
+<template name='item7'>
+<view class='ul'>
+  <view class='li' wx:for="{{children}}">
+    <text bindtap='click' data-item="{{item}}">{{item.name}}</text>
+    <template is='item8' data="{{children:item.children}}" wx:if="{{item.children&&item.children.length>0}}"/>
+  </view>
+</view>
+</template>
+
+<template name='item8'>
+<view class='ul'>
+  <view class='li' wx:for="{{children}}">
+    <text bindtap='click' data-item="{{item}}">{{item.name}}</text>
+    <template is='item9' data="{{children:item.children}}" wx:if="{{item.children&&item.children.length>0}}"/>
+  </view>
+</view>
+</template>
+
+<template name='item9'>
+<view class='ul'>
+  <view class='li' wx:for="{{children}}">
+    <text bindtap='click' data-item="{{item}}">{{item.name}}</text>
+    <template is='item10' data="{{children:item.children}}" wx:if="{{item.children&&item.children.length>0}}"/>
+  </view>
+</view>
+</template>
+
+<template name='item10'>
+<view class='ul'>
+  <view class='li' wx:for="{{children}}">
+    <text bindtap='click' data-item="{{item}}">{{item.name}}</text>
+    <template is='item11' data="{{children:item.children}}" wx:if="{{item.children&&item.children.length>0}}"/>
+  </view>
+</view>
+</template>
+
+<template name='item11'>
+<view class='ul'>
+  <view class='li' wx:for="{{children}}">
+    <text bindtap='click' data-item="{{item}}">{{item.name}}</text>
+    <template is='item12' data="{{children:item.children}}" wx:if="{{item.children&&item.children.length>0}}"/>
+  </view>
+</view>
+</template>
+
+<template name='item12'>
+<view class='ul'>
+  <view class='li' wx:for="{{children}}">
+    <text bindtap='click' data-item="{{item}}">{{item.name}}</text>
+    <template is='item13' data="{{children:item.children}}" wx:if="{{item.children&&item.children.length>0}}"/>
+  </view>
+</view>
+</template>
+
+<template name='item13'>
+<view class='ul'>
+  <view class='li' wx:for="{{children}}">
+    <text bindtap='click' data-item="{{item}}">{{item.name}}</text>
+    <template is='item14' data="{{children:item.children}}" wx:if="{{item.children&&item.children.length>0}}"/>
+  </view>
+</view>
+</template>
+
+<template name='item14'>
+<view class='ul'>
+  <view class='li' wx:for="{{children}}">
+    <text bindtap='click' data-item="{{item}}">{{item.name}}</text>
+    <template is='item15' data="{{children:item.children}}" wx:if="{{item.children&&item.children.length>0}}"/>
+  </view>
+</view>
+</template>
+
+<template name='item16'>
+<view class='ul'>
+  <view class='li' wx:for="{{children}}">
+    <text bindtap='click' data-item="{{item}}">{{item.name}}</text>
+    <template is='item17' data="{{children:item.children}}" wx:if="{{item.children&&item.children.length>0}}"/>
+  </view>
+</view>
+</template>
+
+<template name='item18'>
+<view class='ul'>
+  <view class='li' wx:for="{{children}}">
+    <text bindtap='click' data-item="{{item}}">{{item.name}}</text>
+    <template is='item19' data="{{children:item.children}}" wx:if="{{item.children&&item.children.length>0}}"/>
+  </view>
+</view>
+</template>
+
+<template name='item19'>
+<view class='ul'>
+  <view class='li' wx:for="{{children}}">
+    <text bindtap='click' data-item="{{item}}">{{item.name}}</text>
+    <template is='item20' data="{{children:item.children}}" wx:if="{{item.children&&item.children.length>0}}"/>
+  </view>
+</view>
+</template>
+
+<template name='item20'>
+<view class='ul'>
+  <view class='li' wx:for="{{children}}">
+    <text bindtap='click' data-item="{{item}}">{{item.name}}</text>
+    <template is='item21' data="{{children:item.children}}" wx:if="{{item.children&&item.children.length>0}}"/>
+  </view>
+</view>
+</template>
+
+<template name='item21'>
+<view class='ul'>
+  <view class='li' wx:for="{{children}}">
+    <text bindtap='click' data-item="{{item}}">{{item.name}}</text>
+    <template is='item22' data="{{children:item.children}}" wx:if="{{item.children&&item.children.length>0}}"/>
+  </view>
+</view>
+</template>
+
+<template name='item22'>
+<view class='ul'>
+  <view class='li' wx:for="{{children}}">
+    <text bindtap='click' data-item="{{item}}">{{item.name}}</text>
+    <template is='item23' data="{{children:item.children}}" wx:if="{{item.children&&item.children.length>0}}"/>
+  </view>
+</view>
+</template>
+
+<template name='item23'>
+<view class='ul'>
+  <view class='li' wx:for="{{children}}">
+    <text bindtap='click' data-item="{{item}}">{{item.name}}</text>
+    <template is='item24' data="{{children:item.children}}" wx:if="{{item.children&&item.children.length>0}}"/>
+  </view>
+</view>
+</template>
+
+<template name='item24'>
+<view class='ul'>
+  <view class='li' wx:for="{{children}}">
+    <text bindtap='click' data-item="{{item}}">{{item.name}}</text>
+    <template is='item25' data="{{children:item.children}}" wx:if="{{item.children&&item.children.length>0}}"/>
+  </view>
+</view>
+</template>
+
+<template name='item25'>
+<view class='ul'>
+  <view class='li' wx:for="{{children}}">
+    <text bindtap='click' data-item="{{item}}">{{item.name}}</text>
+    <template is='item26' data="{{children:item.children}}" wx:if="{{item.children&&item.children.length>0}}"/>
+  </view>
+</view>
+</template>
+
+<template name='item26'>
+<view class='ul'>
+  <view class='li' wx:for="{{children}}">
+    <text bindtap='click' data-item="{{item}}">{{item.name}}</text>
+    <template is='item27' data="{{children:item.children}}" wx:if="{{item.children&&item.children.length>0}}"/>
+  </view>
+</view>
+</template>
+
+<template name='item27'>
+<view class='ul'>
+  <view class='li' wx:for="{{children}}">
+    <text bindtap='click' data-item="{{item}}">{{item.name}}</text>
+    <template is='item28' data="{{children:item.children}}" wx:if="{{item.children&&item.children.length>0}}"/>
+  </view>
+</view>
+</template>
+
+<template name='item29'>
+<view class='ul'>
+  <view class='li' wx:for="{{children}}">
+    <text bindtap='click' data-item="{{item}}">{{item.name}}</text>
+    <template is='item30' data="{{children:item.children}}" wx:if="{{item.children&&item.children.length>0}}"/>
+  </view>
+</view>
+</template>
+
+<template name='item31'>
+<view class='ul'>
+  <view class='li' wx:for="{{children}}">
+    <text bindtap='click' data-item="{{item}}">{{item.name}}</text>
+    <template is='item1' data="{{children:item.children}}" wx:if="{{item.children&&item.children.length>0}}"/>
+  </view>
+</view>
+</template>
+
+<template name='item32'>
+<view class='ul'>
+  <view class='li' wx:for="{{children}}">
+    <text bindtap='click' data-item="{{item}}">{{item.name}}</text>
+    <template is='item33' data="{{children:item.children}}" wx:if="{{item.children&&item.children.length>0}}"/>
+  </view>
+</view>
+</template>

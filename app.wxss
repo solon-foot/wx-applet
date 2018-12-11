@@ -1,4 +1,5 @@
 /**app.wxss**/
+@import 'style/widget/weui-grid/weui-grid.wxss';
 .container {
   height: 100%;
   display: flex;

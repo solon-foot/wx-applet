@@ -1,0 +1,8 @@
+<!--index.wxml-->
+<import src = "../template/id_card.wxml"/>
+<view class="">
+<block wx:for="{{users}}" wx:key="item.idCard">
+  <template is="id_card_front" data="{{data:item}}"/>
+</block>
+  
+</view>

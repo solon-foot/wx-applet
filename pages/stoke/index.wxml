@@ -1,0 +1,8 @@
+<!--pages/stoke/index.wxml-->
+<canvas style="width: 750rpx;height:750rpx" canvas-id="canvas" bindtouchend="canvasTouchEnd" ></canvas>
+<button bindtap='actionCustom'>{{gameEdit?"完成":"自定义"}}</button>
+<button bindtap='actionSolve'>自动求解</button>
+
+<picker style='text-align:left;' value="{{pickRange.index}}" range="{{pickRange.data}}" bindchange="actionPick">
+  <button>内置游戏:{{pickRange.data[pickRange.index]}}</button>
+</picker>

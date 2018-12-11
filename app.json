@@ -1,10 +1,15 @@
 {
   "pages": [
-    "pages/rubik/index",
-    "pages/calendar/calendar",
+    "pages/stoke/index",
     "pages/index/index",
-    "pages/logs/logs",
-    "pages/rubik/pages/formula/formula"
+    "pages/sudoku/index",
+    "pages/calendar/index",
+    "pages/user/info",
+    "pages/user/user",
+    "pages/rubik/index",
+    "pages/rubik/pages/formula/formula",
+    
+    "pages/logs/logs"
   ],
   "window": {
     "backgroundTextStyle": "light",

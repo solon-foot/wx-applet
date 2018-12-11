@@ -1,0 +1,67 @@
+<!--index.wxml-->
+
+<view class="toolbar" id="toolbar">
+  <!-- <view class='action' style='text-align:left;'>
+    <text class='year' bindtap='actionPickDate'>{{calendarDatas[currentIndex].current.year}}年{{calendarDatas[currentIndex].current.month}}月{{calendarDatas[currentIndex].current.day}}日</text>
+    
+  </view> -->
+  <picker class='action' style='text-align:left;' mode="date" value='{{calendarDatas[currentIndex].current.year}}-{{calendarDatas[currentIndex].current.month}}-{{calendarDatas[currentIndex].current.day}}' start="1900-01-01" end="2100-01-01" bindchange="actionPickDate">
+              <view class="year">{{calendarDatas[currentIndex].current.year}}年{{calendarDatas[currentIndex].current.month}}月{{calendarDatas[currentIndex].current.day}}日</view>
+            </picker>
+
+  <view class="action today" bindtap='actionBackToday'>回今天</view>
+</view>
+
+<view class="wrapper" id="wrapper">
+
+  <view class="date_row date_week">
+    <view class="date_item">日</view>
+    <view class="date_item">一</view>
+    <view class="date_item">二</view>
+    <view class="date_item">三</view>
+    <view class="date_item">四</view>
+    <view class="date_item">五</view>
+    <view class="date_item">六</view>
+  </view>
+  <swiper  interval='0' duration='{{swipeDuration}}' bindchange="swiperChange" vertical="{{true}}" 
+  style='height:{{calendarDatas[currentIndex].calendar.length*53}}px' current='{{currentIndex}}'>
+  <block wx:for="{{calendarDatas}}" wx:for-item="calendar">
+    <swiper-item>
+      <view class='date-list'>
+        <view class='date_row' wx:for="{{calendar.calendar}}" wx:for-item="caleadar_row">
+          <view class='date_item {{caleadar_column.itemCls}}' data-item='{{caleadar_column}}'
+           bindtap='actionSelect' wx:for="{{caleadar_row}}" wx:for-item="caleadar_column">
+            <text class='date_icon {{caleadar_column.iconCls}}'>{{caleadar_column.iconText}}</text>
+            <text class='date_day'>{{caleadar_column.day}}</text>
+            <text class='date_lunar {{caleadar_column.fetvCls}}'>{{caleadar_column.lunar}}</text>
+          </view>
+        </view>
+      </view>
+    </swiper-item>
+    </block>
+
+  </swiper>
+
+
+
+
+
+  <view class="date_info">
+    <view class="date_lunar_info">sd</view>
+    <view class="date_fetv">sd</view>
+    <view class="date_gan_zhi">sd</view>
+
+    <view class="date_hl">
+      <view class="date_hl_item">
+        <view class="hl_y circle">宜</view>
+        <text class="hl_y_content">sd</text>
+      </view>
+
+      <view class="date_hl_item">
+        <view class="hl_j circle">忌</view>
+        <text class="hl_j_content">sd</text>
+      </view>
+    </view>
+  </view>
+  <!--date_info-->
+</view>

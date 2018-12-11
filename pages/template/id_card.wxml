@@ -1,0 +1,24 @@
+<template name="id_card_front">
+<view class='id_card_front'>
+  <image class='id_card_bg' src='/pages/template/id_card_bg_front.png' mode='widthFix'></image>
+  <text class='id_card_content id_card_name_content'> {{data.name}}</text>
+  <text class='id_card_content id_card_sex_content' >{{data.sex?'男':'女'}}</text>
+  <text class='id_card_content id_card_nation_content' >{{data.nation}}</text>
+  <text class='id_card_content id_card_year_content' >{{data.birth_year}}</text>
+  <text class='id_card_content id_card_month_content' >{{data.birth_month}}</text>
+  <text class='id_card_content id_card_day_content' >{{data.birth_day}}</text>
+  <text class='id_card_content id_card_address_content' >{{data.address}}</text>
+  <text class='id_card_content id_card_id_content' >{{data.idCard}}</text>
+  <text class='id_card_title id_card_name_title' >姓 名</text>
+  <text class='id_card_title id_card_sex_title' >性 别</text>
+  <text class='id_card_title id_card_nation_title' >民 族</text>
+  <text class='id_card_title id_card_birth_title' >出 生</text>
+  <text class='id_card_title id_card_year_title' >年</text>
+  <text class='id_card_title id_card_month_title' >月</text>
+  <text class='id_card_title id_card_day_title' >日</text>
+  <text class='id_card_title id_card_address_title' >住 址</text>
+  <text class='id_card_title id_card_id_title' >公民身份证号码</text>
+  <image class='id_card_head' mode='widthFix' src='/pages/template/id_card_head.png'></image>
+
+</view>
+</template>
