@@ -15,7 +15,6 @@ function Mode(arr, start, end) {
     this.start = start[0];
     this.end = start[1];
     this.data = arr.data;
-    console.log(arr);
   } else {
     this.data = arr;
     this.start = start;
@@ -35,26 +34,41 @@ function Mode(arr, start, end) {
             x: j,
             y: i
           }
-          console.log(j,i);
+          console.log(j, i);
           break;
         }
       }
+      if (this.start) {
+        break;
+      }
     }
+  }
 
-    if (!this.start) {
-      for (let i = 0; i < data.length; i++) {
-        for (let j = 0; j < data[i].length; j++) {
-          if (data[i][j]) {
+  if (!this.start) {
+    let data = this.data;
+    for (let i = 0; i < data.length; i++) {
+      for (let j = 0; j < data[i].length; j++) {
+        if (data[i][j]) {
+          data[i][j] = false;
+          if (!this._checkAroundOddPoint(data, j, i)) {
             this.start = {
               x: j,
               y: i
             }
-            console.log(j, i);
+            data[i][j] = true;
             break;
           }
+          data[i][j] = true;
+
+
+          break;
         }
       }
+      if (this.start) {
+        break;
+      }
     }
+
   }
   if (this.end) {
     let e = this.end;
@@ -67,6 +81,18 @@ function Mode(arr, start, end) {
   // let e = this.end;
   // this.end = this.start;
   // this.start = e;
+  if (!this.end) {
+    let data = this.data;
+    let count = 0;
+    for (let i = 0; i < data.length; i++) {
+      for (let j = 0; j < data[i].length; j++) {
+          if(data[i][j]){
+count++;
+          }
+      }
+    }
+    this.pathCount = count;
+  }
 
 }
 Mode.prototype.solveSync = function() {
@@ -77,9 +103,7 @@ Mode.prototype.solveSync = function() {
 }
 Mode.prototype.solve = function(cb) {
   const that = this;
-  let path = [];
-  return gameProcess2(this.data, this.start, this.end, path, function(data, p) {
-    that.path = path;
+  return this.gameProcess2(this.data, this.start, function(data, p) {
     if (cb) return cb();
     return 0;
   });
@@ -156,112 +180,107 @@ var sleep = function(time) {
     }, time);
   })
 };
-async function gameProcess2(arr, start, end, path, cb) {
-  path.push(start);
-  // console.log(path);
-  //绘制path
-
-
+Mode.prototype.gameProcess2 = async function (data, start, cb) {
+  this.path.push(start);
   var x = start.x;
   var y = start.y;
-  arr[y][x] = false;
+  data[y][x] = false;
   // await reloadCanvas();
-  await sleep(cb(arr, path))
-  if (end && end.x == x && end.y == y) {
-    return checkOk(arr);
+  await sleep(cb(data, this.path))
+  if (this.end && this.end.x == x && this.end.y == y) {
+    return checkOk(data);
   }
   //如果不连通，直接return false;
-  if (!checkOk2(arr, x, y, end)) {
+  if (!checkOk2(data, x, y, this.end)) {
     return false;
   }
-  console.log(arr);
-  if (checkOk(arr)) {
+  if (checkOk(data)) {
     return true
   }
-  if (x > 0 && arr[y][x - 1]) {
-    arr[y][x - 1] = false;
-    if (!checkAroundOddPoint(arr, x, y, end)) {
-      var p = await gameProcess2(arr, {
+  if (x > 0 && data[y][x - 1]) {
+    data[y][x - 1] = false;
+    if (!this._checkAroundOddPoint(data, x, y)) {
+      var p = await this.gameProcess2(data, {
         x: x - 1,
         y
-      }, end, path, cb);
+      }, cb);
       if (p) {
         return true;
       } else {
-        arr[y][x - 1] = true;
-        path.splice(path.length - 1, 1);
+        data[y][x - 1] = true;
+        this.path.splice(this.path.length - 1, 1);
         // await reloadCanvas();
       }
     } else {
-      arr[y][x - 1] = true;
+      data[y][x - 1] = true;
     }
 
 
 
   }
 
-  if (x < arr[y].length - 1 && arr[y][x + 1]) {
-    arr[y][x + 1] = false;
-    if (!checkAroundOddPoint(arr, x, y, end)) {
+  if (x < data[y].length - 1 && data[y][x + 1]) {
+    data[y][x + 1] = false;
+    if (!this._checkAroundOddPoint(data, x, y)) {
 
-      var p = await gameProcess2(arr, {
+      var p = await this.gameProcess2(data, {
         x: x + 1,
         y
-      }, end, path, cb);
+      }, cb);
       if (p) {
 
         return true;
       } else {
-        arr[y][x + 1] = true;
-        path.splice(path.length - 1, 1);
+        data[y][x + 1] = true;
+        this.path.splice(this.path.length - 1, 1);
         // await reloadCanvas();
       }
     } else {
-      arr[y][x + 1] = true;
+      data[y][x + 1] = true;
     }
   }
 
-  if (y > 0 && arr[y - 1][x]) {
+  if (y > 0 && data[y - 1][x]) {
 
 
-    arr[y - 1][x] = false;
-    if (!checkAroundOddPoint(arr, x, y, end)) {
-      var p = await gameProcess2(arr, {
+    data[y - 1][x] = false;
+    if (!this._checkAroundOddPoint(data, x, y)) {
+      var p = await this.gameProcess2(data, {
         x,
         y: y - 1
-      }, end, path, cb);
+      }, cb);
       if (p) {
         return true;
       } else {
-        arr[y - 1][x] = true;
-        path.splice(path.length - 1, 1);
+        data[y - 1][x] = true;
+        this.path.splice(this.path.length - 1, 1);
         // await reloadCanvas();
       }
     } else {
-      arr[y - 1][x] = true;
+      data[y - 1][x] = true;
     }
   }
 
-  if (y < arr.length - 1 && arr[y + 1][x]) {
-    arr[y + 1][x] = false;
-    if (!checkAroundOddPoint(arr, x, y, end)) {
-      var p = await gameProcess2(arr, {
+  if (y < data.length - 1 && data[y + 1][x]) {
+    data[y + 1][x] = false;
+    if (!this._checkAroundOddPoint(data, x, y)) {
+      var p = await this.gameProcess2(data, {
         x,
         y: y + 1
-      }, end, path, cb);
+      }, cb);
       if (p) {
         return true;
       } else {
-        arr[y + 1][x] = true;
-        path.splice(path.length - 1, 1);
+        data[y + 1][x] = true;
+        this.path.splice(this.path.length - 1, 1);
       }
     } else {
-      arr[y + 1][x] = true;
+      data[y + 1][x] = true;
     }
   }
 
-  // arr[y][x] = true;
-  // path.splice(len, 1);
+  // data[y][x] = true;
+  // this.path.splice(len, 1);
   // await reloadCanvas();
   // 走到了尽头了
   return false;
@@ -269,6 +288,118 @@ async function gameProcess2(arr, start, end, path, cb) {
 
 
 }
+// Mode.prototype.gameProcess2 = async function (arr, start, end, path, cb) {
+//   path.push(start);
+//   // console.log(path);
+//   //绘制path
+
+
+//   var x = start.x;
+//   var y = start.y;
+//   arr[y][x] = false;
+//   // await reloadCanvas();
+//   await sleep(cb(arr, path))
+//   if (end && end.x == x && end.y == y) {
+//     return checkOk(arr);
+//   }
+//   //如果不连通，直接return false;
+//   if (!checkOk2(arr, x, y, end)) {
+//     return false;
+//   }
+//   if (checkOk(arr)) {
+//     return true
+//   }
+//   if (x > 0 && arr[y][x - 1]) {
+//     arr[y][x - 1] = false;
+//     if (!checkAroundOddPoint(arr, x, y, end)) {
+//       var p = await this.gameProcess2(arr, {
+//         x: x - 1,
+//         y
+//       }, end, path, cb);
+//       if (p) {
+//         return true;
+//       } else {
+//         arr[y][x - 1] = true;
+//         path.splice(path.length - 1, 1);
+//         // await reloadCanvas();
+//       }
+//     } else {
+//       arr[y][x - 1] = true;
+//     }
+
+
+
+//   }
+
+//   if (x < arr[y].length - 1 && arr[y][x + 1]) {
+//     arr[y][x + 1] = false;
+//     if (!checkAroundOddPoint(arr, x, y, end)) {
+
+//       var p = await this.gameProcess2(arr, {
+//         x: x + 1,
+//         y
+//       }, end, path, cb);
+//       if (p) {
+
+//         return true;
+//       } else {
+//         arr[y][x + 1] = true;
+//         path.splice(path.length - 1, 1);
+//         // await reloadCanvas();
+//       }
+//     } else {
+//       arr[y][x + 1] = true;
+//     }
+//   }
+
+//   if (y > 0 && arr[y - 1][x]) {
+
+
+//     arr[y - 1][x] = false;
+//     if (!checkAroundOddPoint(arr, x, y, end)) {
+//       var p = await this.gameProcess2(arr, {
+//         x,
+//         y: y - 1
+//       }, end, path, cb);
+//       if (p) {
+//         return true;
+//       } else {
+//         arr[y - 1][x] = true;
+//         path.splice(path.length - 1, 1);
+//         // await reloadCanvas();
+//       }
+//     } else {
+//       arr[y - 1][x] = true;
+//     }
+//   }
+
+//   if (y < arr.length - 1 && arr[y + 1][x]) {
+//     arr[y + 1][x] = false;
+//     if (!checkAroundOddPoint(arr, x, y, end)) {
+//       var p = await this.gameProcess2(arr, {
+//         x,
+//         y: y + 1
+//       }, end, path, cb);
+//       if (p) {
+//         return true;
+//       } else {
+//         arr[y + 1][x] = true;
+//         path.splice(path.length - 1, 1);
+//       }
+//     } else {
+//       arr[y + 1][x] = true;
+//     }
+//   }
+
+//   // arr[y][x] = true;
+//   // path.splice(len, 1);
+//   // await reloadCanvas();
+//   // 走到了尽头了
+//   return false;
+
+
+
+// }
 
 function gameProcess(arr, start, end, path) {
   path.push(start);
@@ -426,17 +557,18 @@ function isOddPoint(arr, x, y, end) { //是只有一个出路的点
   }
   return getChannel(arr, x, y) == 1;
 }
-var count = 0;
 
-function checkAroundOddPoint(arr, x, y, end) {
+
+Mode.prototype._checkAroundOddPoint= function (arr, x, y) {
+  let end = this.end;
   // return false;
-
-  let b = _checkAroundOddPoint(arr, x, y, end);
-  return b;
-}
-
-function _checkAroundOddPoint(arr, x, y, end) {
-    if(!end)return false;
+  if(!end){
+    console.log(this.pathCount, this.path.length);
+    if(this.pathCount-this.path.length<5){//这个5或许可以改为4
+      return false;
+    }
+  }
+  
 
   //  return false;
   if (x > 0 && isOddPoint(arr, x - 1, y, end)) {
