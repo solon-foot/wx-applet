@@ -260,7 +260,7 @@ Page({
       wx.showToast({
         title: '无解',
         icon: 'error',
-        image:"img/fail.png",
+        image:"/imgs/fail.png",
         duration: 2000
       })
     }

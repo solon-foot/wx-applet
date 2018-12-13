@@ -17,7 +17,6 @@ Page({
   onLoad: function(options) {
     this.mode = new Mode(GAME_DATA[0]);
     console.log(this.mode.toString());
-   
     this.data.screenWidth = wx.getSystemInfoSync().windowWidth;
   },
 
@@ -27,15 +26,20 @@ Page({
   onReady: function() {
     this.draw();
     const that = this;
-    // let time = new Date().getTime();
-    // this.mode.solveSync();
-    // console.log(new Date().getTime()-time);
-    // this.draw();
-    this.mode.solve(()=>{
+    this.mode.solve(() => {
       that.draw();
       return 50;
-    }).then(function(path){
-      
+    }).then(data => {
+      if (!data) {
+        wx.showToast({
+          title: '无解',
+          icon: 'error',
+          image: "/imgs/fail.png",
+          duration: 2000
+        });
+      }
+    }, e => {
+      console.log(e)
     });
   },
 
@@ -58,10 +62,10 @@ Page({
     for (let i = 0; i < height; i++) {
       for (let j = 0; j < width; j++) {
         if (data[i][j]) {
-          
+
           this.drawDot(context,
             leftMargin + item_width * j + item_width / 2,
-           topMargin + i * item_width + item_width / 2,
+            topMargin + i * item_width + item_width / 2,
             radius);
         }
       }
@@ -69,12 +73,12 @@ Page({
     const start = this.mode.start;
     const end = this.mode.end;
     context.fillStyle = "orange";
-    if(start){
-        this.drawDot(context,
-        item_width*start.x+item_width/2+leftMargin,
-        item_width*start.y+item_width/2+topMargin,radius);
+    if (start) {
+      this.drawDot(context,
+        item_width * start.x + item_width / 2 + leftMargin,
+        item_width * start.y + item_width / 2 + topMargin, radius);
     }
-    if(end){
+    if (end) {
       this.drawDot(context,
         item_width * end.x + item_width / 2 + leftMargin,
         item_width * end.y + item_width / 2 + topMargin, radius);
@@ -84,22 +88,22 @@ Page({
 
     // context.fillStyle = "or"
     let path = this.mode.path;
-    
-    if(path.length>0){
-      context.lineWidth = radius*2;
+
+    if (path.length > 0) {
+      context.lineWidth = radius * 2;
       context.beginPath();
       context.strokeStyle = "orange";
       this.drawDot(context,
         item_width * path[0].x + item_width / 2 + leftMargin,
         item_width * path[0].y + item_width / 2 + topMargin, radius);
-      
-      
+
+
       for (var i = 1; i < path.length; i++) {
         this.drawDot(context,
           item_width * path[i].x + item_width / 2 + leftMargin,
           item_width * path[i].y + item_width / 2 + topMargin, radius);
         context.beginPath();
-        context.moveTo(leftMargin + path[i-1].x * item_width + item_width/2,
+        context.moveTo(leftMargin + path[i - 1].x * item_width + item_width / 2,
           topMargin + path[i - 1].y * item_width + item_width / 2)
         context.lineTo(leftMargin + path[i].x * item_width + item_width / 2,
           topMargin + path[i].y * item_width + item_width / 2);
@@ -107,22 +111,22 @@ Page({
       }
       context.stroke();
     }
-    
+
 
     //绘制起始/结束表示
-      context.lineWidth = 4;
+    context.lineWidth = 4;
     context.beginPath();
     context.strokeStyle = "white";
     if (start) {
-      context.moveTo(leftMargin + start.x * item_width+item_width*0.3,
-       topMargin+start.y*item_width+item_width*0.3)
-      context.lineTo(leftMargin + start.x * item_width  + item_width * 0.7,
-       topMargin + start.y * item_width + item_width * 0.7);
+      context.moveTo(leftMargin + start.x * item_width + item_width * 0.3,
+        topMargin + start.y * item_width + item_width * 0.3)
+      context.lineTo(leftMargin + start.x * item_width + item_width * 0.7,
+        topMargin + start.y * item_width + item_width * 0.7);
       context.moveTo(leftMargin + start.x * item_width + item_width * 0.7,
-       topMargin + start.y * item_width + item_width * 0.3)
-      context.lineTo(leftMargin + start.x * item_width  + item_width * 0.3,
-       topMargin + start.y * item_width + item_width * 0.7);
-      
+        topMargin + start.y * item_width + item_width * 0.3)
+      context.lineTo(leftMargin + start.x * item_width + item_width * 0.3,
+        topMargin + start.y * item_width + item_width * 0.7);
+
     }
     if (end) {
       context.moveTo(leftMargin + end.x * item_width + item_width * 0.3,

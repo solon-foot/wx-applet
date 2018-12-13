@@ -1,8 +1,6 @@
 <!--pages/index/index.wxml-->
 <view >
-    <view>
-        miaoshi
-    </view>
+
     
         <view class="weui-grids">
             <block wx:for="{{grids}}" wx:key="*this">

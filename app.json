@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/stoke/index",
     "pages/index/index",
+    "pages/stoke/index",
     "pages/sudoku/index",
     "pages/calendar/index",
     "pages/user/info",

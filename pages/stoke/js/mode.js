@@ -22,8 +22,6 @@ function Mode(arr, start, end) {
   }
   //处理起点
   this.path = [];
-  this.start = null;
-  this.end = null;
   if (!this.start) { //没有起始点，我就找一个，找不到，就随便搞一个
     let data = this.data;
 
@@ -34,7 +32,6 @@ function Mode(arr, start, end) {
             x: j,
             y: i
           }
-          console.log(j, i);
           break;
         }
       }
@@ -78,32 +75,28 @@ function Mode(arr, start, end) {
     }
   }
 
-  // let e = this.end;
-  // this.end = this.start;
-  // this.start = e;
-  if (!this.end) {
-    let data = this.data;
-    let count = 0;
-    for (let i = 0; i < data.length; i++) {
-      for (let j = 0; j < data[i].length; j++) {
-          if(data[i][j]){
-count++;
-          }
+
+  let data = this.data;
+  let count = 0;
+  for (let i = 0; i < data.length; i++) {
+    for (let j = 0; j < data[i].length; j++) {
+      if (data[i][j]) {
+        count++;
       }
     }
-    this.pathCount = count;
   }
 
 }
+
 Mode.prototype.solveSync = function() {
   let path = [];
-  gameProcess(this.data, this.start, this.end, path);
+  gameProcess(copyArr(this.data), this.start, this.end, path);
   this.path = path;
   return path;
 }
 Mode.prototype.solve = function(cb) {
   const that = this;
-  return this.gameProcess2(this.data, this.start, function(data, p) {
+  return this.gameProcess2(copyArr(this.data), this.start, function(data, p) {
     if (cb) return cb();
     return 0;
   });
@@ -180,7 +173,7 @@ var sleep = function(time) {
     }, time);
   })
 };
-Mode.prototype.gameProcess2 = async function (data, start, cb) {
+Mode.prototype.gameProcess2 = async function(data, start, cb) {
   this.path.push(start);
   var x = start.x;
   var y = start.y;
@@ -498,12 +491,15 @@ function checkOk(arr) { //检查所有点是否都走到
   }
   return true;
 }
-
-function checkOk2(a, x, y, end) { //检查连通性，存在孤立点则不能继续
+function copyArr(a){//二维数组clone
   var arr = [];
   for (var i = 0; i < a.length; i++) {
     arr.push(a[i].concat());
   }
+  return arr;
+}
+function checkOk2(a, x, y, end) { //检查连通性，存在孤立点则不能继续
+  var arr = copyArr(a);
   // if(end){
   //   arr[end.y][end.x] = false;
   // }
@@ -559,32 +555,83 @@ function isOddPoint(arr, x, y, end) { //是只有一个出路的点
 }
 
 
-Mode.prototype._checkAroundOddPoint= function (arr, x, y) {
+Mode.prototype._checkAroundOddPoint = function(arr, x, y) {
   let end = this.end;
   // return false;
-  if(!end){
-    console.log(this.pathCount, this.path.length);
-    if(this.pathCount-this.path.length<5){//这个5或许可以改为4
-      return false;
+  if (end) {
+    return this.__checkAroundOddPoint(arr,x,y,end);
+  }
+  let endTemp = null;
+  if(this.endTempList){
+    for(let i=0;i<this.endTempList.length;i++){
+      let p = this.endTempList[i];
+      if (arr[p.y][p.x]){
+          if(endTemp){
+            console.log("这里如果走不到，则下面的break 可以加")
+            return true;
+          }
+          endTemp = p;
+          // break;
+      }
     }
   }
   
+  if(endTemp){
+    return this.__checkAroundOddPoint(arr, x, y, endTemp);
+  } else {
+    let count =0;
+    if (x > 0 && isOddPoint(arr, x - 1, y)) {
+      endTemp={x:x-1,y};
+      count++;
+    }
 
-  //  return false;
-  if (x > 0 && isOddPoint(arr, x - 1, y, end)) {
-    return true;
-  }
+    if (x < arr[y].length - 1 && isOddPoint(arr, x + 1, y)) {
+      endTemp ={x:x+1,y};
+      count++;
+    }
 
-  if (x < arr[y].length - 1 && isOddPoint(arr, x + 1, y, end)) {
-    return true;
-  }
+    if (y > 0 && isOddPoint(arr, x, y - 1)) {
+      endTemp={x,y:y-1};
+      count++;
+    }
 
-  if (y > 0 && isOddPoint(arr, x, y - 1, end)) {
-    return true;
+    if (y < arr.length - 1 && isOddPoint(arr, x, y + 1)) {
+      endTemp ={x,y:y+1};
+      count++;
+    }
+    if(count>1){
+      return true;
+    }
+    if(!this.endTempList){this.endTempList=[]}
+    if(endTemp){
+      this.endTempList.push(endTemp)
+    }
+    
+    console.log(this.endTempList);
+    return false;
   }
-
-  if (y < arr.length - 1 && isOddPoint(arr, x, y + 1, end)) {
-    return true;
-  }
-  return false;
+  
 }
+  Mode.prototype.__checkAroundOddPoint = function (arr, x, y,end) {
+      if (x > 0 && isOddPoint(arr, x - 1, y, end)) {
+        return true;
+      }
+
+      if (x < arr[y].length - 1 && isOddPoint(arr, x + 1, y, end)) {
+        return true;
+      }
+
+      if (y > 0 && isOddPoint(arr, x, y - 1, end)) {
+        return true;
+      }
+
+      if (y < arr.length - 1 && isOddPoint(arr, x, y + 1, end)) {
+        return true;
+      }
+      return false;
+    }
+
+
+  
+  
+  
