@@ -198,10 +198,10 @@ Page({
     }
     context.draw();
 
-  }, canvasTouchEnd:function(e){
+  }, canvasTap:function(e){
     let shudu = this.data.shudu;
     let shudu2 = this.data.shudu2;
-    let { x, y } = e.changedTouches[0];
+    let { x, y } = e.detail;
     const screenWidth = this.data.screenWidth;
 
     const padding = screenWidth / 10;
@@ -252,17 +252,30 @@ Page({
       shudu = shudu2.copy();
     }
   
-    shudu2 = shudu.solve();
+    // shudu2 = shudu.solve();
+    const that = this;
+    wx.showLoading({
+      title: '计算中',
+      mask:true,
+    })
+      shudu.solve().then(result => {
+        that.setData({ shudu, shudu2: result, gameEdit: false });
+        that.draw();
+        wx.hideLoading()
+      }, error => {
+        wx.hideLoading();
+        wx.showToast({
+          title: '无解',
+          icon: 'error',
+          image: "/imgs/fail.png",
+          duration: 2000
+        })
+      });
+    
     if(shudu2){
-      this.setData({ shudu, shudu2,gameEdit:false });
-      this.draw();
+      
     } else {
-      wx.showToast({
-        title: '无解',
-        icon: 'error',
-        image:"/imgs/fail.png",
-        duration: 2000
-      })
+      
     }
     
   },actionCustom:function(e) {

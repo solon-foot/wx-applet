@@ -215,11 +215,17 @@ Shudu.prototype.toString = function () {
     }
     return sb;
 }
-Shudu.prototype.solve = function () {
+Shudu.prototype.solveSync = function () {
   let game = this.copy();
   return execute(game);
 }
-
+Shudu.prototype.solve = function () {
+  return new Promise((resolve,reject)=>{
+    let game = this.copy();
+    let result =  execute(game);
+    if(result)resolve(result);else reject()
+  });
+}
 function initPath() {
     var path = new Array(9);
     for (var i = 0; i < 9; i++) {

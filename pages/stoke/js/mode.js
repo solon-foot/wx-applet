@@ -22,6 +22,10 @@ function Mode(arr, start, end) {
   }
   //处理起点
   this.path = [];
+  
+
+}
+Mode.prototype.process=function(){
   if (!this.start) { //没有起始点，我就找一个，找不到，就随便搞一个
     let data = this.data;
 
@@ -85,16 +89,16 @@ function Mode(arr, start, end) {
       }
     }
   }
-
 }
-
 Mode.prototype.solveSync = function() {
+  this.process();
   let path = [];
   gameProcess(copyArr(this.data), this.start, this.end, path);
   this.path = path;
   return path;
 }
 Mode.prototype.solve = function(cb) {
+  this.process();
   const that = this;
   return this.gameProcess2(copyArr(this.data), this.start, function(data, p) {
     if (cb) return cb();
