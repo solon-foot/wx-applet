@@ -1,6 +1,7 @@
 // pages/stoke/index.js
 const GAME_DATA = require('/js/game_data')
 const Mode = require('/js/mode')
+const TouchModel = require("../../utils/touchUtil");
 Page({
 
   /**
@@ -32,6 +33,9 @@ Page({
         index: 0
       }
     });
+    this.touchModel = new TouchModel();
+    this.touchModel.setOnTap(this.canvasOnTap);
+    this.touchModel.setOnLongTap(this.canvasOnLongTap);
   },
 
   /**
@@ -170,7 +174,7 @@ Page({
     }
     x = Math.floor(x / item_width);
     y = Math.floor(y / item_width);
-    console.log(e,x, y);
+    // console.log(e,x, y);
 
     return {
       x,
@@ -178,30 +182,44 @@ Page({
     };
   },
   canvasTouchStart: function(e) {
-    // if (this.data.gameEdit) return true;
+    if (this.data.gameEdit)  {return this.touchModel.start(e)};
     let pos = this.eventToPos(e);
-    console.log("canvasTouchStart", pos, this.gameEdit);
+    if (pos &&this.mode.move(pos.x,pos.y)){
+      this.draw();
+    }
+  
+    
   },
   canvasTouchMove: function(e) {
-    // if (this.data.gameEdit) return true;
+    if (this.data.gameEdit) { return this.touchModel.move(e) };
     let pos = this.eventToPos(e);
-    console.log("canvasTouchMove", pos, this.gameEdit);
+    if (pos &&this.mode.move(pos.x, pos.y)) {
+      this.draw();
+    }
   },
   canvasTouchEnd: function(e) {
-    // if (this.data.gameEdit) return true;
+    if (this.data.gameEdit) { return this.touchModel.end(e) };
     let pos = this.eventToPos(e);
-    console.log("canvasTouchEnd", pos, this.gameEdit);
+    if (pos&&this.mode.move(pos.x, pos.y)) {
+      this.draw();
+    }
   },
-  canvasLongTap: function(e) {
-    // if (!this.data.gameEdit) return;
-    let pos = this.eventToPos(e);
-    console.log("canvasLongTap", pos, this.gameEdit);
+  checkSuccess:function(){
+    if (this.mode.success()) {
+
+    }
   },
-  canvasTap: function(e) {
-    // if (!this.data.gameEdit) return;
-    e.changedTouches=[e.detail];
+  canvasOnTap:function(e){
     let pos = this.eventToPos(e);
-    console.log("canvasTap", pos,this.gameEdit);
+    if(pos)
+      this.mode.toggle(pos.x,pos.y);
+    this.draw();
+  },
+  canvasOnLongTap: function (e) {
+    let pos = this.eventToPos(e);
+    if (pos)
+    this.mode.bindStart(pos.x,pos.y);
+    this.draw();
   },
   actionPick: function(e) {
     let index = e.detail.value;

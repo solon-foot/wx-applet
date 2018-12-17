@@ -99,11 +99,71 @@ Mode.prototype.solveSync = function() {
 }
 Mode.prototype.solve = function(cb) {
   this.process();
+  this.path=[];
   const that = this;
   return this.gameProcess2(copyArr(this.data), this.start, function(data, p) {
     if (cb) return cb();
     return 0;
   });
+}
+Mode.prototype.move = function (x, y) {
+  let data = this.data;
+  if(!data[y][x])return false;
+  let length = this.path.length;
+  if(length==0){
+    if (!this.start || this.start.x == x && this.start.y == y){
+      this.path.push({x,y});
+      return true;
+    }
+    if(this.end&&this.end.x ==x && this.end.y == y){
+      this.path.push({x,y});
+      return true;
+    }
+    return false;
+  }
+  if(length==1){//如果游戏只有两个点，就会产生bug
+    if(this.start && this.start.x == x && this.start.y == y){
+      this.path=[{ x, y }];
+      return true;
+    }
+    if (this.end && this.end.x == x && this.end.y == y) {
+      this.path=[{ x, y }];
+      return true;
+    }
+  }
+  
+ for(let i=0;i<length;i++){
+   if(this.path[i].x == x && this.path[i].y == y) {
+     this.path = this.path.slice(0, i+1);
+     return true};
+ }
+ let curPos = this.path[length-1];
+  if(Math.abs(curPos.x-x) + Math.abs(curPos.y-y)==1){
+    this.path.push({x,y})
+    return true;
+  }
+
+  return false;
+}
+Mode.prototype.toggle = function (x,y) {
+  if(this.start&& this.start.x === x && this.start.y === y){
+    this.start = this.end;
+    this.end = null;
+    return;
+  }
+  if(this.end && this.end.x===x && this.end.y ===y ){
+    this.end = null;
+    return;
+  }
+  this.data[y][x] = !this.data[y][x];
+}
+Mode.prototype.bindStart = function (x,y) {
+  if(this.start){
+    if(this.start.x!==x || this.start.y !==y)
+    this.end = {x,y};
+    return;
+  }
+  this.start = {x,y};
 }
 Mode.prototype.toString = function() {
   //●
