@@ -73,6 +73,7 @@ Page({
     // })
   },
   onLoad: function () {
+    // let user = [{"志":"1991-10-28"}];
     LunarCalendar.setLunarFestival({
       "d0921": "胖子🎂",
       "d1220": "熊卫🎂",

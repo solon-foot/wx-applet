@@ -13,6 +13,7 @@ Page({
       { name: "数独", src: "/imgs/ic_sudoku.png", url: "/pages/sudoku/index" },
       { name: "速算24", src: "/imgs/ic_24.png", url: "/pages/rubik/index" },
       { name: "一划到底", src: "/imgs/ic_stoke.png", url: "/pages/stoke/index" },
+      { name: "数字华容道", src: "/imgs/ic_stoke.png", url: "/pages/klotski/klotski" },
     ]
   },
 

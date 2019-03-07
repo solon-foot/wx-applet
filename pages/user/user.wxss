@@ -1,2 +1,12 @@
 /* pages/user/user.wxss */
+
 @import "../template/id_card.wxss"
+
+.item_user_content {
+  /* background:red; */
+  height: 200rpx;
+  width: 100%;
+  position: relative;
+  display: flex;
+  vertical-align: top;
+}

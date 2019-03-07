@@ -1,0 +1,8 @@
+<!--pages/klotski.wxml-->
+<view  style="width: 100%;height:750rpx;background-color:#f00;" >
+<block wx:for="{{game}}"  wx:for-index="i">
+<block wx:for="{{item}}"  wx:for-index="j">
+<view wx:if="{{item!=gameLevel*gameLevel}}" bindtap='onClick' data-x="{{j}}" data-y="{{i}}" class='item' style='left:{{187.5*j}}rpx;top:{{187.5*i}}rpx;'>{{item}}</view>
+</block>
+</block>
+</view>

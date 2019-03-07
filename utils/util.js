@@ -37,7 +37,7 @@ const age = (date) => {
   let now = new Date();
   let age = now.getFullYear() - date.getFullYear();
   let t1, t2;
-  t1 = data.getMonth();
+  t1 = date.getMonth();
   t2 = now.getMonth();
   if (t2 > t1) return age;
   if (t2 < t1) return age - 1;
@@ -56,4 +56,5 @@ const age2 = (date) => {
 module.exports = {
   formatTime: formatTime,
   parseIdCard,
+  age,age2
 }
