@@ -1,7 +1,7 @@
 <template name="item_user">
 <view style='position:relative;height:120rpx;background-color:gray;margin: 2rpx 0;'>
     <image class='' style='border:1px solid gray;border-radius:15rpx;width:100rpx;height:100rpx;margin:8rpx 20rpx' src='/pages/template/id_card_head.png'></image>
-  <text class=''style="margin:auto;height:100rpx;position:absolute;top:35rpx;"> {{data.name}}</text>
-  <text class='' style="position:absolute;top:35rpx;right:40rpx;">{{data.age}}</text>
+  <text class=''style="margin:auto;height:100rpx;position:absolute;top:35rpx;"> {{data.name}}  {{data.birth_desc}}</text>
+  <text class='' style="position:absolute;top:35rpx;right:40rpx;">{{data.age}}-{{data.age2}}</text>
 </view>
 </template>
