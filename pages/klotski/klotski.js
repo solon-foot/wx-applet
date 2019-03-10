@@ -110,9 +110,9 @@ Page({
       );
       let emptyPos= {x:-1,y:-1};
       if((level&1)==0){
-        let x = Math.round(Math.random()*level-0.5);
-        let y = Math.round(Math.random()*(level>>1)-0.5);
-        y = ((count & 1) == 0)?y*2:y*2+1;
+        let y = Math.round(Math.random()*level-0.5);
+        let x = Math.round(Math.random()*(level>>1)-0.5)*2;
+        x = ((count & 1) == 0)?x:x+1;
         emptyPos = {x,y};
       } else{
         if ((count & 1) == 1){//交换最后两个
@@ -124,6 +124,7 @@ Page({
         emptyPos = { x: Math.round(Math.random() * level - 0.5), y: Math.round(Math.random() * level - 0.5)};
       }
       temp.splice(emptyPos.x+emptyPos.y*level,0,level*level);
+      console.log(emptyPos);
     let data=[];
     for(let i=0;i<max;i+=level) {
       data.push(temp.slice(i,i+level));
